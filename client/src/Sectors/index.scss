@@ -1,0 +1,208 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    height: 100vh;
+    text-align: center;
+    //color: white;
+    background-image: url("https://wallpaperaccess.com/full/776285.jpg");
+    background-size: cover;
+
+    .container-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+
+        .wrapper {
+            height: 55rem;
+            width: 60rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 1px solid orange;
+            border-right: 1px solid orange;
+            border-radius: 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%);
+            color: white;
+
+            .guildline-text {
+                width: 100%;
+                margin: 4rem 0 2rem 0;
+
+                h3 {
+                    font-size: 2.5rem;
+                }
+            }
+
+            %form-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 35rem;
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+
+            }
+
+            .p-toast {
+                max-width: 35rem;
+
+                .p-toast-message {
+                    background: linear-gradient(to top, rgba(0, 0, 0, 0.4)50%, rgba(0, 0, 0, 0.4)50%);
+                    border: solid orange;
+                    border-width: 0 0 0 6px;
+                    color: white;
+
+                    .p-toast-message-icon {
+                        color: orange;
+                    }
+
+                    .p-toast-icon-close {
+                        color: orange;
+                    }
+
+                    .p-toast-summary {
+                        font-size: 1.6rem;
+                    }
+
+                    .p-toast-detail {
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+
+            .name-input {
+                @extend %form-container;
+
+                .input-container {
+                    .p-inputtext {
+                        height: 4rem;
+                        width: 27rem;
+                        border-radius: 6px;
+                        font-size: 1.5rem;
+                        border: none;
+                        padding: 0px 10px;
+                        border-bottom: 1px solid orange;
+                        border-left: 1px solid orange;
+                        color: white;
+                        background: linear-gradient(to top, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, 0)50%);
+                    }
+
+                    .p-invalid.p-inputtext {
+                        border: 1px solid #eb1212;
+                        border-radius: 6px;
+                    }
+
+                    .p-filled.p-inputtext.p-invalid {
+                        border-bottom: 1px solid orange;
+                        border-left: 1px solid orange;
+                        border-top: none;
+                        border-right: none;
+                        border-radius: 6px;
+                    }
+                }
+            }
+
+            .sector-container {
+                @extend %form-container;
+
+                align-items: left;
+
+                .select-manufactor {
+                    .p-treeselect {
+                        height: 4rem;
+                        width: 27rem;
+                        font-size: 1.5rem;
+                        color: white;
+                        text-align: left;
+                        border: none;
+                        border-bottom: 1px solid orange;
+                        border-left: 1px solid orange;
+                        background: linear-gradient(to top, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, 0)50%);
+                    }
+
+                    .p-invalid.p-treeselect {
+                        border: 1px solid #eb1212;
+                        border-radius: 6px;
+                    }
+
+                    .p-treeselect.p-inputwrapper-filled.p-invalid {
+                        border-bottom: 1px solid orange;
+                        border-left: 1px solid orange;
+                        border-top: none;
+                        border-right: none;
+                        border-radius: 6px;
+                    }
+                }
+            }
+
+            .confirm-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 4rem;
+                margin: 2rem 0 2rem 0;
+
+
+                .p-checkbox {
+                    .p-checkbox-box.p-highlight {
+                        background: rgba(255, 166, 0, 0.815);
+                        border-color: #553f07;
+                    }
+                }
+
+                .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight {
+                    &:hover {
+                        background: rgba(255, 166, 0, 0.815);
+                        border-color: #553f07;
+                    }
+
+                }
+
+
+
+
+                label {
+                    margin-left: 2rem;
+                    font-size: 1.5rem;
+                }
+            }
+
+            .button-save {
+                margin-top: 3rem;
+                width: 100%;
+                height: 3.5rem;
+                position: relative;
+
+                button {
+                    width: 50%;
+                    height: 100%;
+                    background-color: orange;
+                    border-radius: 6px;
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    border: none;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+
+                    &:hover {
+                        border: 1px solid white;
+                    }
+
+                }
+            }
+        }
+    }
+
+
+}
