@@ -3,7 +3,7 @@ import express from 'express'
 import { connect as mongoConnect } from 'mongoose'
 import cors from 'cors'
 
-import Todo from 'models/Todo'
+import Sector from 'models/Sector'
 
 config()
 
@@ -22,27 +22,19 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.sendStatus(200)
 })
-// app.post('/addTodo', async (req, res) => {
-// 	const { body } = req
+app.get('/helo', (req, res) => {
+    res.sendStatus(200)
+})
 
-// 	const newTodo = new Todo(body)
-// 	const savedtodo = await newTodo.save()
-
-// 	return res.send(savedtodo)
-// })
-
-// app.delete('/deleteTodo', async (req, res) => {
-// 	const {
-// 		body: { todoId },
-// 	} = req
-
-// 	const response = await Todo.findByIdAndDelete(todoId)
-// 	return res.send(response)
-// })
-
-app.get('/getAllTodos', async (_, res) => {
-	const response = await Todo.find({})
-	return res.sendStatus(200).send(response)
+app.get('/getAllSector', async (_, res) => {
+	try {
+		const response = await Sector.find({})
+		res.sendStatus(200).json(response)
+	} catch (error) {
+		res.status(500).json({message: error.message});
+	}
+	
+	
 })
 
 const port = process.env.PORT || 8000
