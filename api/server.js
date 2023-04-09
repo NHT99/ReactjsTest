@@ -44,7 +44,7 @@ mongoose.connect('mongodb+srv://admin:00000000@sectorapi.uws2jbo.mongodb.net/Sec
 .then(() =>{
     console.log("connected");
 }).catch(err => {
-    console.log(err);
+    console.log("err>>>>>>>>>>>>>" , err);
 })
 app.listen(8000, () => {
     console.log("API running on port 8000");
