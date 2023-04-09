@@ -19,9 +19,9 @@ app.use(express.json())
 
 // To handle cors error
 app.use(cors())
-
-app.get('/hello', (_, res) => res.send('Hello from Cules Coding'))
-
+app.get('/', (req, res) => {
+    res.sendStatus(200)
+})
 app.post('/addTodo', async (req, res) => {
 	const { body } = req
 
