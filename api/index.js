@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Sector = require('./models/sectorModel')
+const dotenv = require('dotenv')
+dotenv.config();
 const app = express()
 
 
@@ -46,7 +48,9 @@ mongoose.connect(process.env.MONGODB_URL)
 }).catch(err => {
     console.log("err>>>>>>>>>>>>>" , err);
 })
-const port = process.env.PORT || 9000
-app.listen(port, () => {
-    console.log(`API running on port ${port}`);
-})
+const port = process.env.PORT 
+if(port){
+    app.listen(port)
+}
+
+module.exports = app;
