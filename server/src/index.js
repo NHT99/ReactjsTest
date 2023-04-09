@@ -4,14 +4,13 @@ import { connect as mongoConnect } from 'mongoose'
 import cors from 'cors'
 
 import Sector from 'models/Sector'
-
+import UserInfo from 'models/UserInfo'
+const app = express()
 config()
 
-mongoConnect(process.env.MONGO_URI)
+mongoConnect(process.env.MONGO_URI) 
 	.then(() => console.log('db connected'))
 	.catch(err => console.log(err))
-
-const app = express()
 
 // To parse request body
 app.use(express.urlencoded({ extended: true }))
@@ -19,22 +18,40 @@ app.use(express.json())
 
 // To handle cors error
 app.use(cors())
-app.get('/', (req, res) => {
-    res.sendStatus(200)
+
+app.get('/', async (req, res) => {
+	await res.sendStatus(200)
 })
-app.get('/helo', (req, res) => {
-    res.sendStatus(200)
+app.get('/helo',async (req, res) => {
+ 	await res.sendStatus(200)
 })
 
-app.get('/getAllSector', async (_, res) => {
+app.get('/sector/getAllSector', async (_, res) => {
+	
 	try {
 		const response = await Sector.find({})
-		res.sendStatus(200).json(response)
+		res.send(response)
 	} catch (error) {
 		res.status(500).json({message: error.message});
 	}
+})
+app.get('/userInfo/getAllUserInfo', async (_, res) => {
 	
-	
+	try {
+		const response = await UserInfo.find({})
+		res.send(response)
+	} catch (error) {
+		res.status(500).json({message: error.message});
+	}
+})
+app.post('/userInfo/addUser', async(req, res) => {
+    try {
+        const sector = await UserInfo.create(req.body)
+        res.status(200).json(sector)
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({message: error.message});
+    }
 })
 
 const port = process.env.PORT || 8000
