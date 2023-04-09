@@ -12,5 +12,5 @@ const userInfoSchema = new Schema({
          } 
 })
 
-const userInfoModel = model('UserInfo', userInfoSchema, "userInfo")
+const userInfoModel = model('userInfo', userInfoSchema, "userInfo")
 export default userInfoModel

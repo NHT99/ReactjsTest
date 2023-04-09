@@ -35,7 +35,7 @@ app.get('/sector/getAllSector', async (_, res) => {
 		res.status(500).json({message: error.message});
 	}
 })
-app.get('/userInfo/', async (_, res) => {
+app.get('/userInfo/getAllUserInfo', async (_, res) => {
 	
 	try {
 		const response = await UserInfo.find({})
