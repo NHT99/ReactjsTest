@@ -40,12 +40,13 @@ app.get('/', (req, res) => {
 //         res.status(500).json({message: error.message});
 //     }
 // })
-mongoose.connect('mongodb+srv://admin:00000000@sectorapi.uws2jbo.mongodb.net/SectorAPI?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URL)
 .then(() =>{
     console.log("connected");
 }).catch(err => {
     console.log("err>>>>>>>>>>>>>" , err);
 })
-app.listen(8000, () => {
-    console.log("API running on port 8000");
+const port = process.env.PORT || 9000
+app.listen(port, () => {
+    console.log(`API running on port ${port}`);
 })
