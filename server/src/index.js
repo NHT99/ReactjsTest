@@ -13,9 +13,9 @@ mongoConnect(process.env.MONGO_URI)
 	.catch(err => console.log(err))
 
 // To parse request body
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 // To handle cors error
 app.use(cors())
 
@@ -35,7 +35,7 @@ app.get('/sector/getAllSector', async (_, res) => {
 		res.status(500).json({message: error.message});
 	}
 })
-app.get('/userInfo/getAllUserInfo', async (_, res) => {
+app.get('/userInfo/', async (_, res) => {
 	
 	try {
 		const response = await UserInfo.find({})
@@ -46,12 +46,27 @@ app.get('/userInfo/getAllUserInfo', async (_, res) => {
 })
 app.post('/userInfo/addUser', async(req, res) => {
     try {
-        const sector = await UserInfo.create(req.body)
-        res.status(200).json(sector)
+        const userInfo = await UserInfo.create(req.body)
+        res.status(200).json(userInfo)
     } catch (error) {
         console.log(error.message);
         res.status(500).json({message: error.message});
     }
+})
+app.put('/userInfo/:id' , async (req , res) => {
+	try {
+		const {id} = req.params;
+		const userInfo = await UserInfo.findByIdAndUpdate(id, req.body);
+
+		//can't find user in db
+		if(!userInfo){
+			return res.status(404).json({message: `User not found with ID ${id}`})
+		}
+		const updatedUserInfo = await UserInfo.findById(id);
+		res.status(200).json(updatedUserInfo);
+	} catch (error) {
+		res.status(500).json({message: error.message});
+	}
 })
 
 const port = process.env.PORT || 8000

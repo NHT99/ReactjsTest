@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 const userInfoSchema = new Schema({
-                 name: {
+            name: {
                 type: "string",  
             },
             sector: {
@@ -9,9 +9,8 @@ const userInfoSchema = new Schema({
             },
             agree: {
                 type: 'boolean',
-                default: false
          } 
 })
 
-const userInfoModel = model('userInfo', userInfoSchema, "userInfo")
+const userInfoModel = model('UserInfo', userInfoSchema, "userInfo")
 export default userInfoModel
