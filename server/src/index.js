@@ -22,27 +22,27 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.sendStatus(200)
 })
-app.post('/addTodo', async (req, res) => {
-	const { body } = req
+// app.post('/addTodo', async (req, res) => {
+// 	const { body } = req
 
-	const newTodo = new Todo(body)
-	const savedtodo = await newTodo.save()
+// 	const newTodo = new Todo(body)
+// 	const savedtodo = await newTodo.save()
 
-	return res.send(savedtodo)
-})
+// 	return res.send(savedtodo)
+// })
 
-app.delete('/deleteTodo', async (req, res) => {
-	const {
-		body: { todoId },
-	} = req
+// app.delete('/deleteTodo', async (req, res) => {
+// 	const {
+// 		body: { todoId },
+// 	} = req
 
-	const response = await Todo.findByIdAndDelete(todoId)
-	return res.send(response)
-})
+// 	const response = await Todo.findByIdAndDelete(todoId)
+// 	return res.send(response)
+// })
 
 app.get('/getAllTodos', async (_, res) => {
 	const response = await Todo.find({})
-	return res.send(response)
+	return res.sendStatus(200).send(response)
 })
 
 const port = process.env.PORT || 8000
