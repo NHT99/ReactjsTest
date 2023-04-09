@@ -3,17 +3,17 @@ import express from 'express'
 import { connect as mongoConnect } from 'mongoose'
 import cors from 'cors'
 
-import Sector from 'models/sector'
+import Todo from 'models/Todo'
 
 config()
 
 mongoConnect(process.env.MONGO_URI)
-    .then(() => console.log('db connected'))
-    .catch(err => console.log(err))
+	.then(() => console.log('db connected'))
+	.catch(err => console.log(err))
 
 const app = express()
 
-// To parse the request body
+// To parse request body
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
@@ -23,17 +23,26 @@ app.use(cors())
 app.get('/hello', (_, res) => res.send('Hello from Cules Coding'))
 
 app.post('/addTodo', async (req, res) => {
-    const { body } = req
+	const { body } = req
 
-    const newTodo = new Sector(body)
-    const savedtodo = await newTodo.save()
+	const newTodo = new Todo(body)
+	const savedtodo = await newTodo.save()
 
-    return res.send(savedtodo)
+	return res.send(savedtodo)
+})
+
+app.delete('/deleteTodo', async (req, res) => {
+	const {
+		body: { todoId },
+	} = req
+
+	const response = await Todo.findByIdAndDelete(todoId)
+	return res.send(response)
 })
 
 app.get('/getAllTodos', async (_, res) => {
-    const response = await Sector.find({})
-    return res.send(response)
+	const response = await Todo.find({})
+	return res.send(response)
 })
 
 const port = process.env.PORT || 8000
