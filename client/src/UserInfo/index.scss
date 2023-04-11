@@ -1,0 +1,335 @@
+@import "./../scss/variable";
+@import "./../scss/mixin";
+
+.p-dialog {
+    width: 35vw;
+
+    @include mobile {
+        width: 0;
+    }
+
+
+    @include smalltablet {
+        width: 0;
+    }
+
+    .p-dialog-header {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4)50%, rgba(0, 0, 0, 0.4)50%);
+        color: $main-color;
+
+        @include mobile {
+            background: linear-gradient(to top, rgba(0, 0, 0, 1)50%, rgba(0, 0, 0, 1)50%);
+        }
+
+        @include smalltablet {
+            background: linear-gradient(to top, rgba(0, 0, 0, 1)50%, rgba(0, 0, 0, 1)50%);
+        }
+
+        .p-dialog-title {
+            font-size: 2.5rem;
+        }
+
+        .p-dialog-header-icons {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .p-dialog-content {
+        background: linear-gradient(to top, rgba(255, 167, 3, 0.5)50%, rgba(255, 167, 0, 0.5)50%);
+        color: whitesmoke;
+
+        @include mobile {
+            background: linear-gradient(to top, rgb(112, 74, 3)50%, rgb(112, 74, 3)50%);
+        }
+
+        @include smalltablet {
+            background: linear-gradient(to top, rgb(112, 74, 3)50%, rgb(112, 74, 3)50%);
+        }
+
+        .m-0 {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+.p-button.p-button-warning.p-button-outlined {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 15rem;
+    height: 4rem;
+    font-size: 1.5rem;
+
+    @include mobile {
+        height: 3.5rem;
+        top: 3.5%;
+    }
+
+    .p-button-icon-left {
+        font-size: 1.5rem;
+    }
+}
+
+.userInfo-container {
+    height: 100vh;
+    text-align: center;
+    //color: $white;
+    background-image: url($background-info-page);
+    background-size: cover;
+
+    .userInfo-container-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        .user-info-wrapper {
+            height: 60rem;
+            width: 50rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid $main-color;
+            border-left: 1px solid $main-color;
+            border-radius: 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%);
+            color: $white;
+
+            @include mobile {
+                width: 35rem;
+                height: 45rem;
+            }
+
+            @include portraitMobile {
+                width: 30rem;
+
+            }
+
+            @include smalltablet {
+                width: 45rem;
+                height: 55rem;
+            }
+
+            .user-header {
+                width: 100%;
+                margin: 4rem 0 2rem 0;
+
+                @include mobile {
+                    margin: 1rem 0 1rem 0;
+                }
+
+                @include smalltablet {
+                    margin: 2rem 0 2rem 0;
+                }
+
+                h3 {
+                    font-size: 2.5rem;
+
+                    @include mobile {
+                        font-size: 2rem;
+                    }
+
+                    @include portraitMobile {
+                        font-size: 1.8rem;
+                    }
+                }
+            }
+
+            %user-info-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 40rem;
+                font-size: 1.6rem;
+                margin-bottom: 4rem;
+                position: relative;
+
+                @include mobile {
+                    width: 32rem;
+                    margin: 0 4rem 2.5rem 4rem;
+                    font-size: 1.5rem;
+                }
+
+                @include portraitMobile {
+                    width: 30rem;
+                    font-size: 1.4rem;
+                    margin: 0 6rem 2.5rem 6rem;
+                }
+
+                .p-inputtext {
+                    height: 4rem;
+                    width: 25rem;
+                    border-radius: 6px;
+                    font-size: 1.5rem;
+                    border: none;
+                    margin: 0 10px;
+                    padding: 0px 10px;
+                    border-bottom: 1px solid $main-color;
+                    border-left: 1px solid $main-color;
+                    color: $white;
+                    background: linear-gradient(to top, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, 0)50%);
+
+                    @include mobile {
+                        margin: 0;
+                        font-size: 1.4rem;
+                    }
+
+                    @include portraitMobile {
+                        margin: 0;
+                        width: 23rem;
+                    }
+                }
+
+                .p-error {
+                    position: absolute;
+                    top: 4.1rem;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        .name {
+            @extend %user-info-container;
+        }
+
+        .sector {
+            @extend %user-info-container;
+        }
+
+        .agree-text {
+            @extend %user-info-container;
+        }
+
+        .guildline-text {
+            width: 40rem;
+            height: 10rem;
+
+            @include mobile {
+                height: 9rem;
+            }
+
+            .guildline-text-wrapper {
+                font-size: 1.5rem;
+
+                @include mobile {
+                    font-size: 1.4rem;
+                }
+            }
+
+            .arrow {
+                width: 4rem;
+                height: 4rem;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+
+                @include mobile {
+                    width: 3rem;
+                    height: 3rem;
+                    margin-top: 0.5rem;
+                }
+
+                span {
+                    width: 0.7rem;
+                    height: 1.4rem;
+                    background-color: $main-color;
+                    animation: move 0.8s infinite ease-in-out;
+                    border-radius: 5px;
+                    display: flex;
+
+                    @include mobile {
+                        width: 0.5rem;
+                        height: 1rem;
+                    }
+
+                    &:nth-of-type(1) {
+                        transform: rotate(-45deg);
+                    }
+
+                    &:nth-of-type(2) {
+                        transform: rotate(45deg);
+                    }
+                }
+
+                @keyframes move {
+                    0% {
+                        margin-top: 0;
+                    }
+
+                    50% {
+                        margin-top: 2.5rem;
+                    }
+
+                    100% {
+                        margin-top: 0;
+                    }
+                }
+
+                @include mobile {
+                    @keyframes move {
+                        0% {
+                            margin-top: 0;
+                        }
+
+                        50% {
+                            margin-top: 1.5rem;
+
+                        }
+
+                        100% {
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .edit-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+
+            .p-togglebutton.p-button.p-highlight {
+                background: $main-color;
+                border-color: #7f7d7b;
+                color: black;
+                width: 10rem;
+                height: 4rem;
+                font-size: 1.5rem;
+
+
+                .p-button-icon-left {
+                    color: black;
+                    margin-left: 0;
+                    font-size: 1.5rem;
+                }
+            }
+
+            .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight) {
+                color: #495057;
+                width: 10rem;
+                height: 4rem;
+                font-size: 1.5rem;
+            }
+
+            .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight) .p-button-icon-left,
+            .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight) .p-button-icon-right {
+                color: #343a40;
+                font-size: 1.5rem;
+            }
+
+            .p-button-success {
+                width: 10rem;
+                height: 4rem;
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+}

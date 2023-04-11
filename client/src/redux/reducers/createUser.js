@@ -2,8 +2,9 @@ import { CREATE_USER_REQUEST, CREATE_USER_SUCCESS, CREATE_USER_ERROR } from "../
 
 const initialState = {
     message: null,
-    userInfo: [],
-    isLoading: false
+    userInfo: null,
+    isLoading: false,
+    createStatus : null,
 }
 
 function createUserReducer(state = initialState, payload) {
@@ -17,6 +18,8 @@ function createUserReducer(state = initialState, payload) {
             return {
                 ...state,
                 isLoading: false,
+                userInfo : payload.userInfoRes,
+                createStatus: payload.status,
             };
         case  CREATE_USER_ERROR:
             return {

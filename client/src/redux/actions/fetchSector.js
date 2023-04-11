@@ -1,6 +1,6 @@
 
 import { FETCH_SECTOR_REQUEST, FETCH_SECTOR_SUCCESS, FETCH_SECTOR_ERROR } from "../constants/Constants";
-const API_ADDRESS = "https://sector-jsondb.vercel.app/sector"
+const API_ADDRESS = "https://sector-app.onrender.com/sector/getAllSector"
 export const fetchSector = () =>async (dispatch) => {
     
     try {
@@ -10,10 +10,10 @@ export const fetchSector = () =>async (dispatch) => {
     
         const response = await fetch(API_ADDRESS);
         const responseBody = await response.json();
-
+        
         dispatch({
             type: FETCH_SECTOR_SUCCESS,
-            sectorData: responseBody, 
+            sectorData: responseBody[0].sector, 
         })
     } catch (error) {
         dispatch({

@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useStore } from "react-redux";
 import { fetchSector } from "../redux/actions/fetchSector";
+import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import { TreeSelect } from 'primereact/treeselect';
 import { Controller, useForm } from 'react-hook-form';
-import { Toast } from 'primereact/toast';
 import { classNames } from 'primereact/utils';
-
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { useNavigate } from "react-router-dom";
 
 import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
 import 'primereact/resources/primereact.css';                       // core css
@@ -16,65 +17,91 @@ import "./index.scss";
 import { addUser } from "../redux/actions/addUser";
 const CreateSector = () => {
     const dispatch = useDispatch();
-    const sector = useSelector((state) => state.sectors.data);
+    const sector = useSelector((state) => state);
+    const [loading, setLoading] = useState(false);
     const [selectedNodeKeys, setSelectedNodeKeys] = useState(null);
     const [choosedSectorLabel, setChoosedSector] = useState("");
+    const navigate = useNavigate();
     const toast = useRef(null);
     const defaultValues = {
         name: '',
-        choosedSector: '',
-        accept: false
+        sector: '',
+        agree: false,
     }
+    const store = useStore();
     const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
+
+    const showSuccess = async () => {
+        await toast.current.show({ severity: 'success', summary: 'Create Success', detail: 'Your user information is successfully created', life: 2000 });
+    }
     useEffect(() => {
-        dispatch(fetchSector())
+        dispatch(fetchSector());
+        setInterval(() => {
+            setLoading(true);
+        }, 3000);
+
     }, [])
 
-    const successToast = () => {
-        toast.current.show({ severity: 'success', summary: 'User Created', detail: 'Your information is successfully created', life: 2000 });
-    };
-    const onSubmit = (data) => {
+    //check when state have createStatus
+    const createStatus = (status) => {
+        if (status.user.createStatus == 200) {
+            showSuccess();
+        }
+    }
+    const onSubmit = async (data) => {
+        data.sector = choosedSectorLabel;
+        //add to database
+        await dispatch(addUser(data));
+        const userInfo = store.getState();
+        //after create user return createStatus 
+        createStatus(userInfo);
 
-        data.choosedSector = choosedSectorLabel;
-        successToast();
-        dispatch(addUser(data));
-        console.log("11111111", data);
-
+        reset();
+        setSelectedNodeKeys(null);
+        //set exprired time of data
+        const date = Date.now()
+        //save user data to local storage to check exprired edit time
+        localStorage.setItem('userInfo', JSON.stringify({
+            data: userInfo.user.userInfo,
+            initial: date,
+            expTime: date + 1000 * 60 //1 minutes in ms
+        }))
+        setTimeout(() => {
+            navigate("/userInfo");
+        }, 2000)
     };
+
     return (
         <>
-            <div className="container">
-                <div className="container-inner">
-                    <div className="wrapper">
-                        <div className="guildline-text">
-                            <h3>Please enter your name and pick the Sectors you are currently involved in.</h3>
-                        </div>
-                        <form action="sectorForm" onSubmit={handleSubmit(onSubmit)} >
+            {
+                sector.sectors.data && loading ?
+                    <div className="container">
+                        <div className="container-inner">
                             <Toast ref={toast} />
-                            <div className="name-input">
-                                <div className="name-text">
-                                    <p>Name</p>
+                            <div className="wrapper">
+                                <div className="guildline-text">
+                                    <h3>Please enter your name and pick the Sectors you are currently involved in.</h3>
                                 </div>
-                                <div className="input-container">
+                                <form action="sectorForm" onSubmit={handleSubmit(onSubmit)} >
 
-                                    <Controller name="name" control={control} rules={{ required: 'Name is required.' }} render={({ field, fieldState }) => (
+                                    <div className="name-input">
+                                        <div className="name-text">
+                                            <p>Name</p>
+                                        </div>
+                                        <div className="input-container">
+                                            <Controller name="name" control={control} rules={{ required: 'Name is required.' }} render={({ field, fieldState }) => (
 
-                                        <InputText {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
-                                    )} />
-
-
-                                </div>
-                            </div>
-                            <div className="sector-container">
-                                <div className="sector-text">
-                                    <p>Sectors</p>
-                                </div>
-                                <div className="select-manufactor">
-                                    {
-                                        sector ?
-
+                                                <InputText {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                            )} />
+                                        </div>
+                                    </div>
+                                    <div className="sector-container">
+                                        <div className="sector-text">
+                                            <p>Sectors</p>
+                                        </div>
+                                        <div className="select-manufactor">
                                             < Controller
-                                                name="choosedSector"
+                                                name="sector"
                                                 control={control}
                                                 rules={{ required: "Value is required." }}
                                                 render={({ field, fieldState }) => (
@@ -83,9 +110,8 @@ const CreateSector = () => {
                                                             {...field}
                                                             value={selectedNodeKeys}
                                                             onNodeSelect={(e) => { setSelectedNodeKeys(e.node.key); setChoosedSector(e.node.label) }}
-                                                            options={sector}
+                                                            options={sector.sectors.data}
                                                             metaKeySelection={false}
-
                                                             placeholder="Select Item"
                                                             className={classNames({
                                                                 "p-invalid": fieldState.error
@@ -93,25 +119,22 @@ const CreateSector = () => {
                                                         />
                                                     </>)}
                                             />
-                                            : null
-                                    }
-                                </div>
+                                        </div>
+                                    </div>
+                                    <div className="confirm-container">
+                                        <Controller name="agree" control={control} rules={{ required: true }} render={({ field, fieldState }) => (
+                                            <Checkbox inputId={field.name} onChange={(e) => { field.onChange(e.checked) }} checked={field.value} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                        )} />
+                                        <label htmlFor="agree" className={classNames({ 'p-error': errors.accept })}>Agree to terms*</label>
+                                    </div>
+                                    <div className="button-save">
+                                        <button type="submit">Save</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div className="confirm-container">
-                                <Controller name="accept" control={control} rules={{ required: true }} render={({ field, fieldState }) => (
-                                    <Checkbox inputId={field.name} onChange={(e) => field.onChange(e.checked)} checked={field.value} className={classNames({ 'p-invalid': fieldState.invalid })} />
-                                )} />
-                                <label htmlFor="accept" className={classNames({ 'p-error': errors.accept })}>Agree to terms*</label>
-                            </div>
-                            <div className="button-save">
-                                <button type="submit">Save</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div >
-            </div >
-
+                        </div >
+                    </div >
+                    : <ProgressSpinner strokeWidth="4" />}
         </>
     )
 }

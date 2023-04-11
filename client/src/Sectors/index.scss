@@ -1,3 +1,6 @@
+@import "./../scss/variable";
+@import "./../scss/mixin";
+
 html,
 body {
     margin: 0;
@@ -6,11 +9,18 @@ body {
     height: 100vh;
 }
 
+.p-progress-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .container {
     height: 100vh;
     text-align: center;
-    //color: white;
-    background-image: url("https://wallpaperaccess.com/full/776285.jpg");
+    //color: $white;
+    background-image: url($background-create-page);
     background-size: cover;
 
     .container-inner {
@@ -19,25 +29,59 @@ body {
         justify-content: center;
         height: 100%;
 
-
         .wrapper {
             height: 55rem;
             width: 60rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-bottom: 1px solid orange;
-            border-right: 1px solid orange;
+            border-bottom: 1px solid $main-color;
+            border-right: 1px solid $main-color;
             border-radius: 1rem;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%);
-            color: white;
+            color: $white;
+
+            @include mobile {
+                width: 35rem;
+                height: 45rem;
+            }
+
+            @include portraitMobile {
+                width: 30rem;
+            }
+
+
+            @include smalltablet {
+                width: 45rem;
+                height: 50rem;
+            }
 
             .guildline-text {
                 width: 100%;
                 margin: 4rem 0 2rem 0;
 
+                @include mobile {
+                    margin: 2rem 0 1rem 0;
+
+                    @include portraitMobile {
+                        margin: 1rem 0 1rem 0;
+                    }
+                }
+
+                @include smalltablet {
+                    margin: 3rem 0 2rem 0;
+                }
+
                 h3 {
                     font-size: 2.5rem;
+
+                    @include mobile {
+                        font-size: 2rem;
+
+                        @include portraitMobile {
+                            font-size: 1.8rem;
+                        }
+                    }
                 }
             }
 
@@ -50,30 +94,12 @@ body {
                 font-size: 1.8rem;
                 margin-bottom: 1rem;
 
-            }
+                @include mobile {
+                    width: 32rem;
+                    font-size: 1.6rem;
 
-            .p-toast {
-                max-width: 35rem;
-
-                .p-toast-message {
-                    background: linear-gradient(to top, rgba(0, 0, 0, 0.4)50%, rgba(0, 0, 0, 0.4)50%);
-                    border: solid orange;
-                    border-width: 0 0 0 6px;
-                    color: white;
-
-                    .p-toast-message-icon {
-                        color: orange;
-                    }
-
-                    .p-toast-icon-close {
-                        color: orange;
-                    }
-
-                    .p-toast-summary {
-                        font-size: 1.6rem;
-                    }
-
-                    .p-toast-detail {
+                    @include portraitMobile {
+                        width: 29rem;
                         font-size: 1.4rem;
                     }
                 }
@@ -90,10 +116,20 @@ body {
                         font-size: 1.5rem;
                         border: none;
                         padding: 0px 10px;
-                        border-bottom: 1px solid orange;
-                        border-left: 1px solid orange;
-                        color: white;
-                        background: linear-gradient(to top, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, 0)50%);
+                        border-bottom: 1px solid $main-color;
+                        border-left: 1px solid $main-color;
+                        color: $white;
+                        background: linear-gradient(to top, rgba(0, 0, 0, 0.6)50%, rgba(0, 0, 0, 0.6)50%);
+
+                        @include mobile {
+                            width: 25rem;
+                            font-size: 1.4rem;
+                            background: linear-gradient(to top, rgba(0, 0, 0, 0.7)50%, rgba(0, 0, 0, 0.7)50%);
+
+                            @include portraitMobile {
+                                width: 23rem;
+                            }
+                        }
                     }
 
                     .p-invalid.p-inputtext {
@@ -102,8 +138,8 @@ body {
                     }
 
                     .p-filled.p-inputtext.p-invalid {
-                        border-bottom: 1px solid orange;
-                        border-left: 1px solid orange;
+                        border-bottom: 1px solid $main-color;
+                        border-left: 1px solid $main-color;
                         border-top: none;
                         border-right: none;
                         border-radius: 6px;
@@ -121,12 +157,22 @@ body {
                         height: 4rem;
                         width: 27rem;
                         font-size: 1.5rem;
-                        color: white;
+                        color: $white;
                         text-align: left;
                         border: none;
-                        border-bottom: 1px solid orange;
-                        border-left: 1px solid orange;
-                        background: linear-gradient(to top, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, 0)50%);
+                        border-bottom: 1px solid $main-color;
+                        border-left: 1px solid $main-color;
+                        background: linear-gradient(to top, rgba(0, 0, 0, 0.6)50%, rgba(0, 0, 0, 0.6)50%);
+
+                        @include mobile {
+                            width: 25rem;
+                            font-size: 1.4rem;
+                            background: linear-gradient(to top, rgba(0, 0, 0, 0.7)50%, rgba(0, 0, 0, 0.7)50%);
+
+                            @include portraitMobile {
+                                width: 23rem;
+                            }
+                        }
                     }
 
                     .p-invalid.p-treeselect {
@@ -135,8 +181,8 @@ body {
                     }
 
                     .p-treeselect.p-inputwrapper-filled.p-invalid {
-                        border-bottom: 1px solid orange;
-                        border-left: 1px solid orange;
+                        border-bottom: 1px solid $main-color;
+                        border-left: 1px solid $main-color;
                         border-top: none;
                         border-right: none;
                         border-radius: 6px;
@@ -152,7 +198,6 @@ body {
                 height: 4rem;
                 margin: 2rem 0 2rem 0;
 
-
                 .p-checkbox {
                     .p-checkbox-box.p-highlight {
                         background: rgba(255, 166, 0, 0.815);
@@ -165,15 +210,17 @@ body {
                         background: rgba(255, 166, 0, 0.815);
                         border-color: #553f07;
                     }
-
                 }
-
-
-
 
                 label {
                     margin-left: 2rem;
                     font-size: 1.5rem;
+
+                    @include mobile {
+
+                        font-size: 1.4rem;
+
+                    }
                 }
             }
 
@@ -186,7 +233,7 @@ body {
                 button {
                     width: 50%;
                     height: 100%;
-                    background-color: orange;
+                    background-color: $main-color;
                     border-radius: 6px;
                     font-size: 1.5rem;
                     font-weight: 600;
@@ -195,8 +242,12 @@ body {
                     left: 50%;
                     transform: translateX(-50%);
 
+                    @include mobile {
+                        font-size: 1.4rem;
+                    }
+
                     &:hover {
-                        border: 1px solid white;
+                        border: 1px solid $white;
                     }
 
                 }
